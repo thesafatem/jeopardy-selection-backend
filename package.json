@@ -27,6 +27,7 @@
   ],
   "typings": "./lib/index.d.ts",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "mongoose": "^8.3.5"
   }
 }
