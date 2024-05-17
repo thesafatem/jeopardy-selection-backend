@@ -1,18 +1,17 @@
 import {Schema, model, Model} from "mongoose";
 
 export interface IUser {
-    id: Schema.Types.ObjectId;
+    _id?: Schema.Types.ObjectId;
     firstName?: string;
     lastName?: string;
     email: string;
     password: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export const UserSchema: Schema<IUser> = new Schema<IUser>(
     {
-        id: {
-            type: Schema.Types.ObjectId
-        },
         firstName: {
             type: String,
             required: false
@@ -27,6 +26,9 @@ export const UserSchema: Schema<IUser> = new Schema<IUser>(
         password: {
             type: String
         }
+    },
+    {
+        timestamps: true
     }
 )
 

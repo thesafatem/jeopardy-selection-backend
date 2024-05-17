@@ -30,7 +30,7 @@
 		"declaration": true,
 
 		"pretty": true,
-		"allowSyntheticDefaultImports": true
+		"allowSyntheticDefaultImports": true,
 	},
 	"include": [
 		"typings/**/*",

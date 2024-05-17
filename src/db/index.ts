@@ -9,7 +9,7 @@ const createConnection = () => {
             const uri = getConnectionUri()
             await mongoose.connect(uri)
         } catch (error) {
-
+            throw error;
         }
     }
 }
