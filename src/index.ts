@@ -1,15 +1,15 @@
 import express, { Application, json } from "express";
 import createConnection from "./db";
-import authRouter from './routers/auth'
+import setRouting from "./routers";
+
 import dotenv from 'dotenv';
 
 const app: Application = express();
-const connectDb = createConnection()
+const connectDb = createConnection();
 
-dotenv.configDotenv()
-
-app.use(json())
-app.use('/auth', authRouter);
+dotenv.configDotenv();
+app.use(json());
+setRouting(app);
 
 async function run() {
   try {
