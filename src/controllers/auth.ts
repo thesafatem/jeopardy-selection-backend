@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import {createUser, getUserByEmail} from "../services/user";
+import { createUser, getUserByEmail } from "../services/user";
 import bcrypt from 'bcrypt';
-import {IUser} from '../db/models/user';
+import { IUser } from '../db/models/user';
 import jwt from 'jsonwebtoken';
 
 const register = async (req: Request, res: Response) => {

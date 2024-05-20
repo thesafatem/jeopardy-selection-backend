@@ -1,14 +1,5 @@
-import {NextFunction, Request, RequestHandler, Response} from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import jwt from 'jsonwebtoken';
-import { IUser } from "../db/models/user";
-
-export interface BaseAuthenticatedRequest extends Request {
-    user?: IUser;
-}
-
-export interface AuthenticatedRequest extends BaseAuthenticatedRequest {
-    user: IUser;
-}
 
 const verifyUser: RequestHandler = (req: Request, res: Response, next: NextFunction): any => {
     if (!req.headers.authorization) {

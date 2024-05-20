@@ -1,8 +1,9 @@
-import { Request, Response} from "express";
+import { Request, Response } from "express";
 import tournamentService from '../services/tournament';
-import {AuthenticatedRequest} from "../middlewares/verifyUser";
+import { isAuthenticated } from "../utils/typeGuards";
 
-const createTournament = async (req: AuthenticatedRequest, res: Response) => {
+const createTournament = async (req: Request, res: Response) => {
+    if (!isAuthenticated(req)) { return }
     const { name, playersToOut } = req.body;
     try {
         const authorId = req.user._id;
@@ -23,9 +24,10 @@ const createTournament = async (req: AuthenticatedRequest, res: Response) => {
     }
 }
 
-const getTournaments = async (req: AuthenticatedRequest, res: Response) => {
+const getTournaments = async (req: Request, res: Response) => {
+    if (!isAuthenticated(req)) { return }
     try {
-        const authorId = req.user?._id;
+        const authorId = req.user._id;
         const tournaments = await tournamentService.getTournaments({ authorId })
         return res.status(200).json({
             tournaments
