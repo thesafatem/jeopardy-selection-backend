@@ -14,13 +14,18 @@ const getTournamentById = (id: string): Promise<ITournament | null> => {
     return TournamentModel.findById(id);
 }
 
-const updateTournamentById = async (id: string, options: object) => {
+const updateTournamentById = (id: string, options: object) => {
     return TournamentModel.findByIdAndUpdate(id, options, { new: true });
+}
+
+const deleteTournamentById = async (id: string) => {
+    await TournamentModel.findByIdAndDelete(id);
 }
 
 export default {
     createTournament,
     getTournaments,
     getTournamentById,
-    updateTournamentById
+    updateTournamentById,
+    deleteTournamentById
 }

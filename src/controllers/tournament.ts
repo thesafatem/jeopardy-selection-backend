@@ -58,7 +58,6 @@ const updateTournament = async (req: Request, res: Response) => {
         const userId = req.user._id;
         const tournament = await tournamentService.getTournamentById(id);
         if (String(tournament?.authorId) !== String(userId)) {
-            console.log(tournament?.authorId, userId);
             return res.status(403).json({
                 error: 'Forbidden'
             })
@@ -76,14 +75,42 @@ const updateTournament = async (req: Request, res: Response) => {
     }
 }
 
-const deleteTournament = (req: Request, res: Response) => {
-    return;
+const deleteTournament = async (req: Request, res: Response) => {
+    if (!isAuthenticated(req)) {
+        return res.status(401).json({
+            error: 'Not authenticated'
+        })
+    }
+    try {
+        const id = req.params.id;
+        const userId = req.user._id;
+        const tournament = await tournamentService.getTournamentById(id);
+        if (String(tournament?.authorId) !== String(userId)) {
+            return res.status(403).json({
+                error: 'Forbidden'
+            })
+        }
+        await tournamentService.deleteTournamentById(id);
+        return res.status(204).json({
+            success: true
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            error: 'Internal server error'
+        })
+    }
 }
 
 const getTournament = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const tournament = await tournamentService.getTournamentById(id);
+        if (!tournament) {
+            return res.status(404).json({
+                error: "Not found"
+            })
+        }
         return res.status(200).json({
             success: true,
             tournament
