@@ -3,7 +3,7 @@ import createConnection from "./db";
 import setRouting from "./routers";
 
 import dotenv from 'dotenv';
-import {IUser} from "./db/models/user";
+import { IUser } from "./db/models/user";
 
 declare global {
   namespace Express {

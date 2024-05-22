@@ -7,7 +7,7 @@ const router = express.Router()
 router.post('/', verifyUser, controller.createTournament);
 router.get('/', verifyUser, controller.getTournaments);
 router.get('/:id', controller.getTournament);
-router.put('/:id', controller.updateTournament);
-router.delete('/:id', controller.deleteTournament);
+router.put('/:id', verifyUser, controller.updateTournament);
+router.delete('/:id', verifyUser, controller.deleteTournament);
 
 export default router;

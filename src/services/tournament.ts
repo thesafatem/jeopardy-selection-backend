@@ -1,5 +1,4 @@
 import TournamentModel, {ITournament} from "../db/models/tournament";
-import {ObjectId} from "mongoose";
 
 const createTournament = async (tournament: ITournament) => {
     const newTournament = new TournamentModel(tournament);
@@ -15,8 +14,8 @@ const getTournamentById = (id: string): Promise<ITournament | null> => {
     return TournamentModel.findById(id);
 }
 
-const updateTournamentById = async (id: ObjectId, options: object) => {
-    return TournamentModel.findByIdAndUpdate(id, options);
+const updateTournamentById = async (id: string, options: object) => {
+    return TournamentModel.findByIdAndUpdate(id, options, { new: true });
 }
 
 export default {

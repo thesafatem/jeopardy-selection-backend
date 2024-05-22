@@ -1,9 +1,9 @@
-import { Schema, model, Model } from "mongoose";
+import {Schema, model, Model, Types} from "mongoose";
 
 export interface ITournament {
-    _id?: Schema.Types.ObjectId;
+    _id?: Types.ObjectId;
     name: string;
-    authorId: Schema.Types.ObjectId;
+    authorId: Types.ObjectId;
     playersToOut: number;
     createdAt?: Date;
     updatedAt?: Date;
@@ -15,7 +15,8 @@ export const TournamentSchema: Schema<ITournament> = new Schema<ITournament>(
             type: String
         },
         authorId: {
-            type: Schema.Types.ObjectId
+            type: Schema.Types.ObjectId,
+            ref: "User"
         },
         playersToOut: {
             type: Number
