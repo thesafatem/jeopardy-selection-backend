@@ -1,14 +1,15 @@
 {
 	"compilerOptions": {
-		"target": "es5",
+		"target": "es6",
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"lib": [
 			"es2015"
 		],
 		"esModuleInterop": true,
+		"skipLibCheck": true,
 		"rootDir": "src",
-		"outDir": "lib",
+		"outDir": "dist",
 
 		"strict": true,
 		"alwaysStrict": true,
@@ -31,12 +32,5 @@
 
 		"pretty": true,
 		"allowSyntheticDefaultImports": true
-	},
-	"include": [
-		"typings/**/*",
-		"src/**/*",
-		"src/**/*.ts",
-		"src/types/**/*.d.ts"
-	],
-	"exclude": ["node_modules"]
+	}
 }

@@ -1,4 +1,4 @@
-import { Application} from "express";
+import { Application } from "express";
 import authRouter from './auth';
 import tournamentRouter from './tournament';
 

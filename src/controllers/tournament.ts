@@ -33,7 +33,7 @@ const getTournaments = async (req: Request, res: Response) => {
             tournaments
         })
     } catch (error) {
-        console.error(error)
+        console.log(error)
         return res.status(500).json({
             error: 'Internal server error'
         })
