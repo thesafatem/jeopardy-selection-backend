@@ -48,8 +48,20 @@ const deleteTournament = (req: Request, res: Response) => {
     return;
 }
 
-const getTournament = (req: Request, res: Response) => {
-    return;
+const getTournament = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const tournament = await tournamentService.getTournamentById(id);
+        return res.status(200).json({
+            success: true,
+            tournament
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            error: 'Internal server error'
+        });
+    }
 }
 
 export default {

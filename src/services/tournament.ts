@@ -11,7 +11,7 @@ const getTournaments = (options: object): Promise<ITournament[]> => {
     return TournamentModel.find(options);
 }
 
-const getTournamentById = (id: ObjectId): Promise<ITournament | null> => {
+const getTournamentById = (id: string): Promise<ITournament | null> => {
     return TournamentModel.findById(id);
 }
 
