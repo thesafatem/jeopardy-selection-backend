@@ -1,4 +1,5 @@
-import TournamentModel, {ITournament} from "../db/models/tournament";
+import TournamentModel, {ITableRow, ITournament} from "../db/models/tournament";
+import { Types } from "mongoose";
 
 const createTournament = async (tournament: ITournament) => {
     const newTournament = new TournamentModel(tournament);
@@ -22,10 +23,26 @@ const deleteTournamentById = async (id: string) => {
     await TournamentModel.findByIdAndDelete(id);
 }
 
+const addTournamentUserScore = (id: string, userId: Types.ObjectId, score: number) => {
+    const row: ITableRow = {
+        userId,
+        score
+    }
+    return TournamentModel.findByIdAndUpdate(id, {
+        $push: {
+            table: {
+                $each: [ row ],
+                $sort: { score: -1 }
+            }
+        }
+    }, { new: true })
+}
+
 export default {
     createTournament,
     getTournaments,
     getTournamentById,
     updateTournamentById,
-    deleteTournamentById
+    deleteTournamentById,
+    addTournamentUserScore
 }

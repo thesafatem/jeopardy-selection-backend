@@ -1,13 +1,35 @@
-import {Schema, model, Model, Types} from "mongoose";
+import { Schema, model, Model, Types } from "mongoose";
+
+export interface ITableRow {
+    userId: Types.ObjectId;
+    score: number;
+}
 
 export interface ITournament {
     _id?: Types.ObjectId;
     name: string;
     authorId: Types.ObjectId;
     playersToOut: number;
+    table: ITableRow[];
     createdAt?: Date;
     updatedAt?: Date;
 }
+
+const TableRowSchema: Schema<ITableRow> = new Schema<ITableRow>(
+    {
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        },
+        score: {
+            type: Number
+        }
+    },
+    {
+        _id: false,
+        timestamps: false
+    }
+)
 
 export const TournamentSchema: Schema<ITournament> = new Schema<ITournament>(
     {
@@ -20,6 +42,9 @@ export const TournamentSchema: Schema<ITournament> = new Schema<ITournament>(
         },
         playersToOut: {
             type: Number
+        },
+        table: {
+            type: [TableRowSchema]
         }
     },
     {
