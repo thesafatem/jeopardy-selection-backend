@@ -162,11 +162,40 @@ const addScore = async (req: Request, res: Response) => {
     }
 }
 
+const updateScore = async (req: Request, res: Response) => {
+    if (!isAuthenticated(req)) {
+        return res.status(401).json({
+            error: 'Not authenticated'
+        })
+    }
+    try {
+        const id = req.params.id;
+        const userId = req.user._id;
+        const { score } = req.body;
+        const tournamentWithScoreUpdated = await tournamentService.updateTournamentUserScore(id, userId, score);
+        if (!tournamentWithScoreUpdated) {
+            return res.status(404).json({
+                error: 'Not found'
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            tournament: tournamentWithScoreUpdated
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            error: 'Internal server error'
+        })
+    }
+}
+
 export default {
     createTournament,
     updateTournament,
     deleteTournament,
     getTournaments,
     getTournament,
-    addScore
+    addScore,
+    updateScore
 }

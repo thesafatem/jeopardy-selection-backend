@@ -10,6 +10,7 @@ router.get('/:id', controller.getTournament);
 router.put('/:id', verifyUser, controller.updateTournament);
 router.delete('/:id', verifyUser, controller.deleteTournament);
 
-router.post('/:id/score', verifyUser, controller.addScore)
+router.post('/:id/score', verifyUser, controller.addScore);
+router.put('/:id/score', verifyUser, controller.updateScore);
 
 export default router;

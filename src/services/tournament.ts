@@ -38,11 +38,34 @@ const addTournamentUserScore = (id: string, userId: Types.ObjectId, score: numbe
     }, { new: true })
 }
 
+const updateTournamentUserScore = async (id: string, userId: Types.ObjectId, score: number) => {
+    await TournamentModel.findByIdAndUpdate(id, {
+        $set: {
+            "table.$[elem].score": score
+        }
+    }, {
+        arrayFilters: [
+            {
+                "elem.userId": userId
+            }
+        ]
+    })
+    return TournamentModel.findByIdAndUpdate(id, {
+        $push: {
+            table: {
+                $each: [],
+                $sort: { score: -1 }
+            }
+        }
+    }, { new: true })
+}
+
 export default {
     createTournament,
     getTournaments,
     getTournamentById,
     updateTournamentById,
     deleteTournamentById,
-    addTournamentUserScore
+    addTournamentUserScore,
+    updateTournamentUserScore
 }
