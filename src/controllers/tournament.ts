@@ -190,6 +190,33 @@ const updateScore = async (req: Request, res: Response) => {
     }
 }
 
+const deleteScore = async (req: Request, res: Response) => {
+    if (!isAuthenticated(req)) {
+        return res.status(401).json({
+            error: 'Not authenticated'
+        })
+    }
+    try {
+        const id = req.params.id;
+        const userId = req.user._id;
+        const tournamentWithScoreDeleted = await tournamentService.deleteTournamentUserScore(id, userId);
+        if (!tournamentWithScoreDeleted) {
+            return res.status(404).json({
+                error: 'Not found'
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            tournament: tournamentWithScoreDeleted
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            error: 'Internal server error'
+        })
+    }
+}
+
 export default {
     createTournament,
     updateTournament,
@@ -197,5 +224,6 @@ export default {
     getTournaments,
     getTournament,
     addScore,
-    updateScore
+    updateScore,
+    deleteScore
 }

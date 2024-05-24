@@ -60,6 +60,16 @@ const updateTournamentUserScore = async (id: string, userId: Types.ObjectId, sco
     }, { new: true })
 }
 
+const deleteTournamentUserScore = async (id: string, userId: Types.ObjectId) => {
+    return TournamentModel.findByIdAndUpdate(id, {
+        $pull: {
+            table: {
+                userId
+            }
+        }
+    }, { new: true })
+}
+
 export default {
     createTournament,
     getTournaments,
@@ -67,5 +77,6 @@ export default {
     updateTournamentById,
     deleteTournamentById,
     addTournamentUserScore,
-    updateTournamentUserScore
+    updateTournamentUserScore,
+    deleteTournamentUserScore
 }

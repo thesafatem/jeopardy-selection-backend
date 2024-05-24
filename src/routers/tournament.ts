@@ -12,5 +12,6 @@ router.delete('/:id', verifyUser, controller.deleteTournament);
 
 router.post('/:id/score', verifyUser, controller.addScore);
 router.put('/:id/score', verifyUser, controller.updateScore);
+router.delete('/:id/score', verifyUser, controller.deleteScore);
 
 export default router;
